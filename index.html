@@ -1,0 +1,4113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMINÈRE - Fine Jewelry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #C9A961;
+            --dark-gold: #A68B4A;
+            --cream: #FAF7F2;
+            --charcoal: #2B2B2B;
+            --soft-black: #1A1A1A;
+            --white: #FFFFFF;
+            --light-gold: #E8D9B5;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--soft-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2px;
+            background-color: var(--charcoal);
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Hero Section - UPDATED FOR VIDEO BACKGROUND */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Video Background Container */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        /* Video Styling */
+        .video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+            filter: brightness(0.7) saturate(1.2);
+        }
+
+        /* Video Overlay for better text readability */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.4) 0%, rgba(43, 43, 43, 0.3) 100%);
+            z-index: 1;
+        }
+
+        /* Fallback Image Background */
+        .video-fallback {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light-gold) 100%);
+            z-index: 0;
+        }
+
+        /* Ensure hero content stays above video */
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 .accent {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--gold);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border: 2px solid var(--gold);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--charcoal);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            color: var(--white);
+            border-color: var(--charcoal);
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Collections Section */
+        .featured-collection {
+            background: linear-gradient(135deg, var(--soft-black) 0%, var(--charcoal) 100%);
+            padding: 5rem 5%;
+            margin: 3rem 0;
+        }
+
+        .featured-collection.alt {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
+        }
+
+        .featured-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .featured-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .featured-collection.alt .featured-text h2 {
+            color: var(--soft-black);
+        }
+
+        .collection-intro {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            line-height: 2;
+            color: var(--light-gold);
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .featured-collection.alt .collection-intro {
+            color: var(--soft-black);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .product-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .product-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .product-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .product-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image-container {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            background: var(--cream);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.5rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(201, 169, 97, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--soft-black);
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover .product-info h3 {
+            color: var(--gold);
+        }
+
+        .product-description {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--charcoal);
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .product-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-button {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .product-button:hover {
+            color: var(--white);
+        }
+
+        .product-button:hover::before {
+            left: 0;
+        }
+
+        /* Product Slider Styles */
+        .slider-section {
+            background: linear-gradient(135deg, var(--soft-black) 0%, var(--charcoal) 100%);
+            padding: 6rem 0;
+            margin: 5rem 0;
+            overflow: hidden;
+        }
+
+        .slider-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 0 5%;
+        }
+
+        .slider-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .slider-header p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--light-gold);
+        }
+
+        .slider-container {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .slider-wrapper {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .slider-track {
+            display: flex;
+            gap: 2rem;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slider-product-card {
+    /* Remove fixed widths - let JavaScript control this */
+    flex: 0 0 calc(25% - 1.5rem); /* Default for desktop */
+    min-width: calc(25% - 1.5rem); /* Default for desktop */
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+    box-sizing: border-box;
+}
+
+.slider-product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive styles - JavaScript will override these */
+@media (max-width: 1024px) {
+    .slider-product-card {
+        flex: 0 0 calc(50% - 1rem);
+        min-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .slider-product-card {
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+}
+
+        .slider-product-image-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            background: var(--cream);
+        }
+
+        .slider-product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-product-card:hover .slider-product-image {
+            transform: scale(1.1);
+        }
+
+        .slider-product-info {
+            padding: 1.5rem;
+        }
+
+        .slider-product-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--soft-black);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .slider-product-description {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--charcoal);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .slider-product-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--gold);
+        }
+
+        /* Slider Navigation Buttons */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .slider-btn:hover {
+            background: var(--dark-gold);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 30px rgba(201, 169, 97, 0.6);
+        }
+
+        .slider-btn.prev {
+            left: 0;
+        }
+
+        .slider-btn.next {
+            right: 0;
+        }
+
+        /* Slider Dots */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--gold);
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        .dot:hover {
+            background: rgba(201, 169, 97, 0.6);
+        }
+
+        /* Home Page Sections */
+        .home-featured-section,
+        .home-why-section,
+        .home-testimonials-section,
+        .home-visit-section,
+        .home-instagram-section,
+        .home-newsletter-section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .home-section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .home-section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .home-section-header p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--charcoal);
+            font-style: italic;
+        }
+
+        /* Featured Collections on Home */
+        .home-collections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .home-collection-item {
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            background: var(--white);
+        }
+
+        .home-collection-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-collection-image {
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .home-collection-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .home-collection-item:hover .home-collection-image img {
+            transform: scale(1.1);
+        }
+
+        .home-collection-text {
+            padding: 2rem;
+        }
+
+        .home-collection-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--soft-black);
+            margin-bottom: 0.8rem;
+        }
+
+        .home-collection-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .home-collection-link {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--gold);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        /* Why Choose Us Section */
+        .home-why-section {
+            background: var(--cream);
+        }
+
+        .home-why-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .home-why-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .home-why-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .home-why-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .home-why-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .home-why-card p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+
+        /* Testimonials Section */
+        .home-testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .home-testimonial-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .home-testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .testimonial-stars {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: var(--charcoal);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--soft-black);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .testimonial-author span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+
+        /* Visit Us Section */
+        .home-visit-section {
+            background: linear-gradient(135deg, var(--soft-black) 0%, var(--charcoal) 100%);
+            color: var(--white);
+        }
+
+        .home-visit-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .home-visit-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .home-visit-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            line-height: 2;
+            color: var(--light-gold);
+            margin-bottom: 2rem;
+        }
+
+        .home-visit-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 3rem;
+        }
+
+        .home-visit-features li {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--light-gold);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .home-visit-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .home-visit-image {
+            height: 450px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .home-visit-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Instagram Section */
+        .home-instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+        }
+
+        .home-instagram-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .home-instagram-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .home-instagram-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .instagram-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 26, 26, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .home-instagram-item:hover .instagram-overlay {
+            opacity: 1;
+        }
+
+        .instagram-overlay span {
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Newsletter Section */
+        .home-newsletter-section {
+            background: var(--cream);
+        }
+
+        .home-newsletter-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .home-newsletter-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .home-newsletter-content p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            margin-bottom: 2.5rem;
+        }
+
+        .home-newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .home-newsletter-form input {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid var(--light-gold);
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            background: var(--white);
+        }
+
+        .home-newsletter-form input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .home-newsletter-form button {
+            padding: 1.2rem 3rem;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .home-newsletter-form button:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
+        }
+
+        .newsletter-privacy {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            opacity: 0.7;
+        }
+
+        /* About Section */
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .about-hero {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .about-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .about-hero .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 5rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--soft-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            line-height: 2;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image-container {
+            position: relative;
+            height: 500px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 4px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .value-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--soft-black);
+        }
+
+        .value-card p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--charcoal);
+        }
+
+        /* Process Section */
+        .process-section {
+            margin: 6rem 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--charcoal);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .process-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .process-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .process-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.3;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .process-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .process-card p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+
+        /* Team Section */
+        .team-section {
+            margin: 6rem 0;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .team-image-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover .team-image-container {
+            transform: scale(1.05);
+            border-color: var(--dark-gold);
+        }
+
+        .team-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--soft-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-bio {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+
+        /* Sustainability Section */
+        .sustainability-section {
+            margin: 6rem 0;
+            background: var(--cream);
+            padding: 4rem;
+            border-radius: 8px;
+        }
+
+        .sustainability-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .sustainability-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--soft-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .sustainability-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .sustainability-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sustainability-list li {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .sustainability-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .sustainability-list strong {
+            color: var(--soft-black);
+            font-weight: 500;
+        }
+
+        /* Certifications Section */
+        .certifications-section {
+            margin: 6rem 0;
+            text-align: center;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cert-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .cert-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--gold);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.3);
+        }
+
+        .cert-card p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        /* Services Page Styles */
+        .services-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+        }
+
+        .services-intro p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--charcoal);
+            line-height: 2;
+        }
+
+        .services-main-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+            margin-bottom: 6rem;
+        }
+
+        .service-card-large {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .service-card-large.reverse {
+            direction: rtl;
+        }
+
+        .service-card-large.reverse>* {
+            direction: ltr;
+        }
+
+        .service-image-large {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .service-image-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .service-card-large:hover .service-image-large img {
+            transform: scale(1.05);
+        }
+
+        .service-content-large h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--soft-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-description {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .service-time {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: var(--gold);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+
+        .service-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--gold);
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .service-button:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.3);
+        }
+
+        .additional-services-section {
+            margin: 6rem 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-price {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--cream);
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+        }
+
+        .warranty-section {
+            margin: 6rem 0;
+            text-align: center;
+        }
+
+        .warranty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .warranty-card {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .warranty-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(201, 169, 97, 0.4);
+        }
+
+        .warranty-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .warranty-card p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .services-cta {
+            text-align: center;
+            padding: 5rem 3rem;
+            background: var(--cream);
+            border-radius: 12px;
+            margin-top: 6rem;
+        }
+
+        .services-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .services-cta p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--charcoal);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .contact-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .contact-header p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--charcoal);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 5rem;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--soft-black);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light-gold);
+            background: var(--cream);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--charcoal);
+            transition: border-color 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .submit-button:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.3);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-block {
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .info-block p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+
+        .info-block strong {
+            color: var(--soft-black);
+            font-weight: 500;
+        }
+
+        /* Appointment Section */
+        .appointment-section {
+            background: linear-gradient(135deg, var(--soft-black) 0%, var(--charcoal) 100%);
+            padding: 5rem 0;
+            margin: 5rem 0;
+            border-radius: 12px;
+        }
+
+        .appointment-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .appointment-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .appointment-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--light-gold);
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .appointment-benefits {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 3rem;
+        }
+
+        .appointment-benefits li {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--light-gold);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .appointment-benefits li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        .appointment-image-container {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .appointment-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 6rem 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .faq-item {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .faq-item p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin: 5rem 0;
+            text-align: center;
+        }
+
+        .map-placeholder {
+            background: var(--cream);
+            border: 2px solid var(--light-gold);
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .map-content {
+            padding: 3rem;
+        }
+
+        .map-content p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            line-height: 2;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--soft-black);
+            color: var(--light-gold);
+            padding: 4rem 5% 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--light-gold);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201, 169, 97, 0.2);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: var(--light-gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--soft-black);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 400px;
+                background: rgba(250, 247, 242, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sustainability-content {
+                grid-template-columns: 1fr;
+            }
+
+            .certifications-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .appointment-content {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card-large {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card-large.reverse {
+                direction: ltr;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .warranty-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Slider responsive */
+            .slider-product-card {
+                flex: 0 0 calc(50% - 1rem);
+                min-width: calc(50% - 1rem);
+            }
+
+            .slider-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 2rem;
+            }
+
+            /* Home page responsive */
+            .home-collections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-visit-content {
+                grid-template-columns: 1fr;
+            }
+
+            .home-instagram-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .home-newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 2rem 5%;
+            }
+
+            .about-hero h1,
+            .contact-header h1 {
+                font-size: 3rem;
+            }
+
+            .about-text h2 {
+                font-size: 2rem;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .featured-text h2 {
+                font-size: 2.5rem;
+            }
+
+            .collection-intro {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .appointment-text h2 {
+                font-size: 2.2rem;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-content-large h2 {
+                font-size: 2rem;
+            }
+
+            .service-image-large {
+                height: 300px;
+            }
+
+            .services-cta h2 {
+                font-size: 2.2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .slider-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .slider-product-card {
+                flex: 0 0 100%;
+                min-width: 100%;
+            }
+
+            .slider-product-image-container {
+                height: 250px;
+            }
+
+            .slider-product-info {
+                padding: 1.2rem;
+            }
+
+            .slider-product-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .slider-product-description {
+                font-size: 0.9rem;
+            }
+
+            .slider-product-price {
+                font-size: 1.3rem;
+            }
+
+            .slider-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.8rem;
+            }
+
+            .slider-section {
+                padding: 4rem 0;
+                margin: 3rem 0;
+            }
+
+            /* Home sections responsive */
+            .home-section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .home-section-header p {
+                font-size: 1.1rem;
+            }
+
+            .home-featured-section,
+            .home-why-section,
+            .home-testimonials-section,
+            .home-visit-section,
+            .home-instagram-section,
+            .home-newsletter-section {
+                padding: 3rem 5%;
+            }
+
+            .home-collection-image {
+                height: 300px;
+            }
+
+            .home-collection-text {
+                padding: 1.5rem;
+            }
+
+            .home-collection-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .home-why-card,
+            .home-testimonial-card {
+                padding: 2rem;
+            }
+
+            .home-visit-text h2 {
+                font-size: 2.2rem;
+            }
+
+            .home-visit-image {
+                height: 350px;
+            }
+
+            .home-instagram-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .home-newsletter-content h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 0.85rem;
+            }
+
+            .products-grid {
+                padding: 2rem 3%;
+            }
+
+            .product-card {
+                height: auto;
+            }
+
+            .product-image-container {
+                height: 300px;
+            }
+
+            .about-hero h1,
+            .contact-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                width: 85%;
+            }
+
+            .featured-text h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .appointment-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .appointment-image-container {
+                height: 300px;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .info-block {
+                padding: 1.5rem;
+            }
+
+            /* Slider mobile */
+            .slider-header h2 {
+                font-size: 2rem;
+            }
+
+            .slider-header p {
+                font-size: 1.1rem;
+            }
+
+            .slider-product-image-container {
+                height: 220px;
+            }
+
+            .slider-product-info {
+                padding: 1rem;
+            }
+
+            .slider-product-info h3 {
+                font-size: 1.1rem;
+            }
+
+            .slider-product-description {
+                font-size: 0.85rem;
+            }
+
+            .slider-product-price {
+                font-size: 1.2rem;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .slider-container {
+                padding: 0 3%;
+            }
+
+            .slider-section {
+                padding: 3rem 0;
+                margin: 2rem 0;
+            }
+
+            /* Home sections mobile */
+            .home-section-header h2 {
+                font-size: 2rem;
+            }
+
+            .home-section-header p {
+                font-size: 1rem;
+            }
+
+            .home-featured-section,
+            .home-why-section,
+            .home-testimonials-section,
+            .home-visit-section,
+            .home-instagram-section,
+            .home-newsletter-section {
+                padding: 2.5rem 3%;
+            }
+
+            .home-collection-image {
+                height: 250px;
+            }
+
+            .home-collection-text {
+                padding: 1.2rem;
+            }
+
+            .home-collection-text h3 {
+                font-size: 1.3rem;
+            }
+
+            .home-collection-text p {
+                font-size: 1rem;
+            }
+
+            .home-why-icon {
+                font-size: 2.5rem;
+            }
+
+            .home-why-card h3 {
+                font-size: 1.4rem;
+            }
+
+            .home-why-card,
+            .home-testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .testimonial-text {
+                font-size: 1.05rem;
+            }
+
+            .home-visit-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .home-visit-text p {
+                font-size: 1.05rem;
+            }
+
+            .home-visit-image {
+                height: 280px;
+            }
+
+            .home-instagram-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .home-newsletter-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .home-newsletter-content p {
+                font-size: 1.05rem;
+            }
+
+            .home-newsletter-form input,
+            .home-newsletter-form button {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo" onclick="showPage('home')">LUMINÈRE</a>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" onclick="showPage('home')" class="active nav-item">Home</a></li>
+            <li><a href="#" onclick="showPage('collections')" class="nav-item">Collections</a></li>
+            <li><a href="#" onclick="showPage('services')" class="nav-item">Services</a></li>
+            <li><a href="#" onclick="showPage('about')" class="nav-item">About</a></li>
+            <li><a href="#" onclick="showPage('contact')" class="nav-item">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Page -->
+    <div class="page active" id="home">
+        <section class="hero">
+            <!-- Video Background -->
+            <div class="video-background">
+                <!-- Using a royalty-free luxury jewelry video from Pexels -->
+                <video class="video-bg" autoplay muted loop playsinline
+                    poster="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1920&h=1080&fit=crop">
+                    <source
+                        src="https://assets.mixkit.co/videos/preview/mixkit-diamond-reflections-in-a-dark-room-1199-large.mp4"
+                        type="video/mp4">
+                    <source
+                        src="https://assets.mixkit.co/videos/preview/mixkit-diamond-reflections-in-a-dark-room-1199-large.webm"
+                        type="video/webm">
+                    <!-- Fallback message if video doesn't load -->
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay"></div>
+                <!-- Fallback gradient background -->
+                <div class="video-fallback"></div>
+            </div>
+
+            <div class="hero-content">
+                <h1>Timeless <span class="accent">Elegance</span></h1>
+                <p>Crafted with passion, adorned with purpose</p>
+                <a href="#" onclick="showPage('collections')" class="cta-button">Explore Collections</a>
+            </div>
+        </section>
+
+        <!-- Featured Collections Preview -->
+        <section class="home-featured-section">
+            <div class="home-section-header">
+                <h2>Signature Collections</h2>
+                <p>Explore our most coveted pieces, each a masterpiece of design and craftsmanship</p>
+            </div>
+            <div class="home-collections-grid">
+                <div class="home-collection-item" onclick="showPage('collections')">
+                    <div class="home-collection-image">
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&h=700&fit=crop" alt="Diamond Necklace">
+                            alt="Diamonds">
+                    </div>
+                    <div class="home-collection-text">
+                        <h3>Eternal Diamonds</h3>
+                        <p>Timeless brilliance for life's precious moments</p>
+                        <span class="home-collection-link">Discover →</span>
+                    </div>
+                </div>
+                <div class="home-collection-item" onclick="showPage('collections')">
+                    <div class="home-collection-image">
+                        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=700&fit=crop"
+                            alt="Gold">
+                    </div>
+                    <div class="home-collection-text">
+                        <h3>Golden Heritage</h3>
+                        <p>Classic designs in luxurious gold</p>
+                        <span class="home-collection-link">Discover →</span>
+                    </div>
+                </div>
+                <div class="home-collection-item" onclick="showPage('collections')">
+                    <div class="home-collection-image">
+                        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=700&fit=crop"
+                            alt="Gemstones">
+                    </div>
+                    <div class="home-collection-text">
+                        <h3>Precious Gems</h3>
+                        <p>Vibrant colors from nature's finest</p>
+                        <span class="home-collection-link">Discover →</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="home-why-section">
+            <div class="home-section-header">
+                <h2>Why Luminère</h2>
+                <p>Four decades of excellence in fine jewelry</p>
+            </div>
+            <div class="home-why-grid">
+                <div class="home-why-card">
+                    <div class="home-why-icon">💎</div>
+                    <h3>Certified Excellence</h3>
+                    <p>Every diamond and gemstone comes with certification from world-renowned gemological institutes,
+                        guaranteeing authenticity and quality.</p>
+                </div>
+                <div class="home-why-card">
+                    <div class="home-why-icon">👨‍🎨</div>
+                    <h3>Master Craftsmanship</h3>
+                    <p>Our artisans bring over 150 combined years of experience, creating pieces that marry traditional
+                        techniques with modern elegance.</p>
+                </div>
+                <div class="home-why-card">
+                    <div class="home-why-icon">🌿</div>
+                    <h3>Ethical Sourcing</h3>
+                    <p>Committed to conflict-free diamonds and responsibly sourced materials. Beauty with a conscience
+                        is our promise to you.</p>
+                </div>
+                <div class="home-why-card">
+                    <div class="home-why-icon">✨</div>
+                    <h3>Lifetime Warranty</h3>
+                    <p>Your investment is protected. All our pieces come with comprehensive lifetime warranty and
+                        complimentary maintenance services.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="home-testimonials-section">
+            <div class="home-section-header">
+                <h2>Cherished Stories</h2>
+                <p>What our clients say about their Luminère experience</p>
+            </div>
+            <div class="home-testimonials-grid">
+                <div class="home-testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"The engagement ring I designed with Luminère is absolutely
+                        breathtaking. The team guided me through every step, and my fiancée cried tears of joy when she
+                        saw it. Worth every penny!"</p>
+                    <div class="testimonial-author">
+                        <strong>Michael Chen</strong>
+                        <span>New York, NY</span>
+                    </div>
+                </div>
+                <div class="home-testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"I inherited my grandmother's necklace and Luminère restored it
+                        beautifully. They treated it with such care and respect. It looks brand new while maintaining
+                        its vintage charm."</p>
+                    <div class="testimonial-author">
+                        <strong>Sarah Martinez</strong>
+                        <span>Boston, MA</span>
+                    </div>
+                </div>
+                <div class="home-testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"The customer service is unmatched. They helped me find the perfect
+                        anniversary gift and even taught me about gemstone care. This is the only jeweler I trust."</p>
+                    <div class="testimonial-author">
+                        <strong>David Thompson</strong>
+                        <span>Chicago, IL</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visit Us Section -->
+        <section class="home-visit-section">
+            <div class="home-visit-content">
+                <div class="home-visit-text">
+                    <h2>Visit Our Boutique</h2>
+                    <p>Experience luxury jewelry in an intimate setting. Our flagship boutique in Manhattan's Diamond
+                        District offers private consultation rooms, expert guidance, and an unforgettable shopping
+                        experience.</p>
+                    <ul class="home-visit-features">
+                        <li>Private viewing appointments available</li>
+                        <li>Complimentary champagne service</li>
+                        <li>Expert gemologists on-site</li>
+                        <li>Custom design studio</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact')" class="cta-button">Book Appointment</a>
+                </div>
+                <div class="home-visit-image">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop"
+                        alt="Boutique Interior">
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram/Social Feed Section -->
+        <section class="home-instagram-section">
+            <div class="home-section-header">
+                <h2>Follow Our Journey</h2>
+                <p>Join our community @luminere_jewelry</p>
+            </div>
+            <div class="home-instagram-grid">
+                <div class="home-instagram-item">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop"
+                        alt="Instagram 1">
+                    <div class="instagram-overlay">
+                        <span>❤️ 2.4K</span>
+                    </div>
+                </div>
+                <div class="home-instagram-item">
+                    <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop"
+                        alt="Instagram 2">
+                    <div class="instagram-overlay">
+                        <span>❤️ 3.1K</span>
+                    </div>
+                </div>
+                <div class="home-instagram-item">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop"
+                        alt="Instagram 3">
+                    <div class="instagram-overlay">
+                        <span>❤️ 1.8K</span>
+                    </div>
+                </div>
+                <div class="home-instagram-item">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop"
+                        alt="Instagram 4">
+                    <div class="instagram-overlay">
+                        <span>❤️ 2.9K</span>
+                    </div>
+                </div>
+                <div class="home-instagram-item">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop"
+                        alt="Instagram 5">
+                    <div class="instagram-overlay">
+                        <span>❤️ 3.5K</span>
+                    </div>
+                </div>
+                <div class="home-instagram-item">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop"
+                        alt="Instagram 6">
+                    <div class="instagram-overlay">
+                        <span>❤️ 2.2K</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="home-newsletter-section">
+            <div class="home-newsletter-content">
+                <h2>Stay Connected</h2>
+                <p>Subscribe to receive exclusive offers, new collection launches, and jewelry care tips</p>
+                <form class="home-newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p class="newsletter-privacy">We respect your privacy. Unsubscribe anytime.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Collections Page -->
+    <div class="page" id="collections">
+        <div class="about-container">
+            <div class="about-hero">
+                <h1>Our Collections</h1>
+                <p class="subtitle">Discover pieces that define your story</p>
+            </div>
+        </div>
+
+        <!-- New Arrivals Slider Section - MOVED TO TOP -->
+        <div class="slider-section">
+            <div class="slider-header">
+                <h2>New Arrivals</h2>
+                <p>Discover our latest stunning pieces</p>
+            </div>
+
+            <div class="slider-container">
+                <button class="slider-btn prev" onclick="slideProducts(-1)">‹</button>
+                <div class="slider-wrapper">
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- Product 1 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&h=400&fit=crop"
+                                    alt="Sapphire Drop Earrings" class="slider-product-image">
+                                <div class="product-badge">New</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Sapphire Drop Earrings</h3>
+                                <p class="slider-product-description">Blue sapphire with diamond accents</p>
+                                <p class="slider-product-price">$7,200</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop"
+                                    alt="Pearl Strand Necklace" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Pearl Strand Necklace</h3>
+                                <p class="slider-product-description">South Sea pearls, 18 inches</p>
+                                <p class="slider-product-price">$8,900</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop"
+                                    alt="Rose Gold Band" class="slider-product-image">
+                                <div class="product-badge">Trending</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Rose Gold Eternity Band</h3>
+                                <p class="slider-product-description">Micro pavé diamonds all around</p>
+                                <p class="slider-product-price">$4,500</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 4 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop"
+                                    alt="Aquamarine Ring" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Aquamarine Cocktail Ring</h3>
+                                <p class="slider-product-description">5 carat cushion cut aquamarine</p>
+                                <p class="slider-product-price">$6,800</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 5 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop"
+                                    alt="Diamond Studs" class="slider-product-image">
+                                <div class="product-badge">Best Seller</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Classic Diamond Studs</h3>
+                                <p class="slider-product-description">2 carat total weight, platinum</p>
+                                <p class="slider-product-price">$11,500</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 6 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop"
+                                    alt="Emerald Pendant" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Emerald Teardrop Pendant</h3>
+                                <p class="slider-product-description">Colombian emerald, 18K gold</p>
+                                <p class="slider-product-price">$9,300</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 7 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop"
+                                    alt="Vintage Ring" class="slider-product-image">
+                                <div class="product-badge">Vintage</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Art Nouveau Ring</h3>
+                                <p class="slider-product-description">Opal with diamond surround</p>
+                                <p class="slider-product-price">$5,600</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 8 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop"
+                                    alt="Chain Bracelet" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Diamond Chain Bracelet</h3>
+                                <p class="slider-product-description">Delicate 18K white gold chain</p>
+                                <p class="slider-product-price">$3,900</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 9 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop"
+                                    alt="Topaz Ring" class="slider-product-image">
+                                <div class="product-badge">Limited</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Blue Topaz Statement Ring</h3>
+                                <p class="slider-product-description">10 carat London blue topaz</p>
+                                <p class="slider-product-price">$4,200</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 10 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop"
+                                    alt="Pearl Earrings" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Tahitian Pearl Earrings</h3>
+                                <p class="slider-product-description">Black pearl drops, 14K gold</p>
+                                <p class="slider-product-price">$5,800</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 11 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop"
+                                    alt="Stackable Rings" class="slider-product-image">
+                                <div class="product-badge">New</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Stackable Ring Set</h3>
+                                <p class="slider-product-description">Set of 3, mixed metals</p>
+                                <p class="slider-product-price">$2,700</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 12 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop"
+                                    alt="Garnet Necklace" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Garnet Cluster Necklace</h3>
+                                <p class="slider-product-description">Rhodolite garnets, rose gold</p>
+                                <p class="slider-product-price">$3,500</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 13 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop"
+                                    alt="Amethyst Ring" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Amethyst Halo Ring</h3>
+                                <p class="slider-product-description">8 carat oval amethyst center</p>
+                                <p class="slider-product-price">$4,900</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 14 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop"
+                                    alt="Cuff Bracelet" class="slider-product-image">
+                                <div class="product-badge">Handcrafted</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Diamond Cuff Bracelet</h3>
+                                <p class="slider-product-description">Flexible cuff with pavé diamonds</p>
+                                <p class="slider-product-price">$13,800</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 15 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop"
+                                    alt="Citrine Pendant" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Citrine Sun Pendant</h3>
+                                <p class="slider-product-description">Bright yellow citrine, gold chain</p>
+                                <p class="slider-product-price">$3,200</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 16 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop"
+                                    alt="Moonstone Ring" class="slider-product-image">
+                                <div class="product-badge">Exclusive</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Rainbow Moonstone Ring</h3>
+                                <p class="slider-product-description">Cabochon moonstone, sterling silver</p>
+                                <p class="slider-product-price">$2,100</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 17 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop"
+                                    alt="Huggie Earrings" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Diamond Huggie Hoops</h3>
+                                <p class="slider-product-description">Small hoops with pavé diamonds</p>
+                                <p class="slider-product-price">$4,600</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 18 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop"
+                                    alt="Peridot Earrings" class="slider-product-image">
+                                <div class="product-badge">New</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Peridot Stud Earrings</h3>
+                                <p class="slider-product-description">Vibrant green peridot, gold setting</p>
+                                <p class="slider-product-price">$2,800</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 19 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop"
+                                    alt="Morganite Ring" class="slider-product-image">
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Morganite Engagement Ring</h3>
+                                <p class="slider-product-description">Blush pink morganite, rose gold</p>
+                                <p class="slider-product-price">$7,500</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 20 -->
+                        <div class="slider-product-card">
+                            <div class="slider-product-image-container">
+                                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop"
+                                    alt="Charm Bracelet" class="slider-product-image">
+                                <div class="product-badge">Best Seller</div>
+                            </div>
+                            <div class="slider-product-info">
+                                <h3>Luxury Charm Bracelet</h3>
+                                <p class="slider-product-description">18K gold with 5 charms</p>
+                                <p class="slider-product-price">$5,400</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-btn next" onclick="slideProducts(1)">›</button>
+            </div>
+
+            <!-- Slider Dots Indicator -->
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+
+        <!-- Featured Collection Showcase -->
+        <div class="featured-collection">
+            <div class="featured-content">
+                <div class="featured-text">
+                    <h2>Eternal Diamonds</h2>
+                    <p class="collection-intro">Our diamond collection represents the pinnacle of luxury and
+                        craftsmanship. Each stone is hand-selected for its exceptional clarity, cut, and brilliance.
+                        From classic solitaires to intricate pavé designs, these pieces are created to become treasured
+                        heirlooms.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&h=600&fit=crop"
+                        alt="Classic Solitaire" class="product-image">
+                    <div class="product-badge">Best Seller</div>
+                </div>
+                <div class="product-info">
+                    <h3>Classic Solitaire Ring</h3>
+                    <p class="product-description">2.5 carat round brilliant diamond</p>
+                    <p class="product-price">$18,500</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=600&fit=crop"
+                        alt="Diamond Necklace" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Radiant Diamond Necklace</h3>
+                    <p class="product-description">18K white gold with diamond pendant</p>
+                    <p class="product-price">$12,800</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600&h=600&fit=crop"
+                        alt="Diamond Earrings" class="product-image">
+                    <div class="product-badge">New</div>
+                </div>
+                <div class="product-info">
+                    <h3>Celestial Stud Earrings</h3>
+                    <p class="product-description">1.5 carat total weight princess cut</p>
+                    <p class="product-price">$9,200</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=600&fit=crop"
+                        alt="Diamond Bracelet" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Infinity Tennis Bracelet</h3>
+                    <p class="product-description">5 carat diamond tennis bracelet</p>
+                    <p class="product-price">$22,400</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Golden Heritage Collection -->
+        <div class="featured-collection alt">
+            <div class="featured-content">
+                <div class="featured-text">
+                    <h2>Golden Heritage</h2>
+                    <p class="collection-intro">Celebrating the timeless allure of gold, this collection merges
+                        traditional craftsmanship with contemporary elegance. Each piece is meticulously crafted from
+                        18K and 22K gold, showcasing intricate details and exceptional quality.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop"
+                        alt="Gold Necklace" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Byzantine Chain Necklace</h3>
+                    <p class="product-description">22K yellow gold traditional design</p>
+                    <p class="product-price">$6,800</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=600&fit=crop"
+                        alt="Gold Bangles" class="product-image">
+                    <div class="product-badge">Handcrafted</div>
+                </div>
+                <div class="product-info">
+                    <h3>Heritage Gold Bangles</h3>
+                    <p class="product-description">Set of 2, 18K gold with filigree</p>
+                    <p class="product-price">$8,500</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600&h=600&fit=crop"
+                        alt="Gold Rings" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Eternal Love Band</h3>
+                    <p class="product-description">18K rose gold wedding band</p>
+                    <p class="product-price">$3,200</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=600&fit=crop"
+                        alt="Gold Pendant" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Medallion Pendant</h3>
+                    <p class="product-description">22K gold with engraved details</p>
+                    <p class="product-price">$4,600</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Precious Gems Collection -->
+        <div class="featured-collection">
+            <div class="featured-content">
+                <div class="featured-text">
+                    <h2>Precious Gems</h2>
+                    <p class="collection-intro">Vibrant sapphires, lustrous emeralds, and radiant rubies come together
+                        in this stunning collection. Each gemstone is ethically sourced and expertly cut to maximize its
+                        natural beauty and brilliance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=600&fit=crop"
+                        alt="Sapphire Ring" class="product-image">
+                    <div class="product-badge">Exclusive</div>
+                </div>
+                <div class="product-info">
+                    <h3>Royal Blue Sapphire Ring</h3>
+                    <p class="product-description">3 carat Ceylon sapphire, platinum setting</p>
+                    <p class="product-price">$15,900</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=600&h=600&fit=crop"
+                        alt="Emerald Necklace" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Emerald Drop Necklace</h3>
+                    <p class="product-description">Colombian emerald with diamond halo</p>
+                    <p class="product-price">$19,500</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=600&fit=crop"
+                        alt="Ruby Earrings" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Burmese Ruby Earrings</h3>
+                    <p class="product-description">Pigeon blood rubies, 18K white gold</p>
+                    <p class="product-price">$14,200</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600&h=600&fit=crop"
+                        alt="Mixed Gemstone" class="product-image">
+                    <div class="product-badge">Limited</div>
+                </div>
+                <div class="product-info">
+                    <h3>Rainbow Cocktail Ring</h3>
+                    <p class="product-description">Multi-gemstone statement piece</p>
+                    <p class="product-price">$11,800</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bridal Collection -->
+        <div class="featured-collection alt">
+            <div class="featured-content">
+                <div class="featured-text">
+                    <h2>Bridal Dreams</h2>
+                    <p class="collection-intro">Your forever begins here. Our bridal collection features engagement
+                        rings and wedding bands designed to symbolize eternal love. From classic to contemporary, find
+                        the perfect piece to mark your journey together.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=600&h=600&fit=crop"
+                        alt="Engagement Ring" class="product-image">
+                    <div class="product-badge">Most Popular</div>
+                </div>
+                <div class="product-info">
+                    <h3>Halo Engagement Ring</h3>
+                    <p class="product-description">1.5 carat center stone with halo</p>
+                    <p class="product-price">$16,500</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&h=600&fit=crop"
+                        alt="Three Stone Ring" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Three Stone Trilogy</h3>
+                    <p class="product-description">Past, present, future diamond ring</p>
+                    <p class="product-price">$13,900</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=600&fit=crop"
+                        alt="Wedding Band Set" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Eternity Band Set</h3>
+                    <p class="product-description">Matching his & hers wedding bands</p>
+                    <p class="product-price">$7,800</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=600&fit=crop"
+                        alt="Vintage Ring" class="product-image">
+                    <div class="product-badge">Vintage</div>
+                </div>
+                <div class="product-info">
+                    <h3>Art Deco Engagement Ring</h3>
+                    <p class="product-description">Vintage inspired with milgrain detail</p>
+                    <p class="product-price">$12,300</p>
+                    <button class="product-button">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Page -->
+    <div class="page" id="services">
+        <div class="about-container">
+            <div class="about-hero">
+                <h1>Our Services</h1>
+                <p class="subtitle">Exceptional experiences crafted just for you</p>
+            </div>
+
+            <!-- Services Overview -->
+            <div class="services-intro">
+                <p>At Luminère, we believe in providing more than just exquisite jewelry. Our comprehensive suite of
+                    services ensures that every aspect of your experience with us is as exceptional as the pieces you'll
+                    cherish for a lifetime.</p>
+            </div>
+
+            <!-- Main Services Grid -->
+            <div class="services-main-grid">
+                <div class="service-card-large">
+                    <div class="service-image-large">
+                        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=800&h=600&fit=crop"
+                            alt="Custom Design">
+                    </div>
+                    <div class="service-content-large">
+                        <h2>Custom Design</h2>
+                        <p class="service-description">Turn your vision into reality with our bespoke jewelry design
+                            service. Our master craftsmen work closely with you from initial concept to final creation.
+                        </p>
+                        <ul class="service-features">
+                            <li>One-on-one consultation with master jewelers</li>
+                            <li>Hand-drawn sketches and 3D CAD renderings</li>
+                            <li>Choose from our curated selection of stones</li>
+                            <li>Regular updates throughout the creation process</li>
+                            <li>Lifetime warranty on custom pieces</li>
+                        </ul>
+                        <p class="service-time">Timeline: 6-8 weeks</p>
+                        <a href="#" class="service-button" onclick="alert('Booking would open here')">Book
+                            Consultation</a>
+                    </div>
+                </div>
+
+                <div class="service-card-large reverse">
+                    <div class="service-content-large">
+                        <h2>Jewelry Restoration & Repair</h2>
+                        <p class="service-description">Breathe new life into your treasured heirlooms. Our expert
+                            craftsmen restore and repair pieces with the utmost care and precision.</p>
+                        <ul class="service-features">
+                            <li>Ring resizing and reshaping</li>
+                            <li>Stone replacement and resetting</li>
+                            <li>Chain and clasp repair</li>
+                            <li>Antique jewelry restoration</li>
+                            <li>Professional polishing and refinishing</li>
+                        </ul>
+                        <p class="service-time">Timeline: 2-4 weeks depending on complexity</p>
+                        <a href="#" class="service-button" onclick="alert('Booking would open here')">Request
+                            Service</a>
+                    </div>
+                    <div class="service-image-large">
+                        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&h=600&fit=crop"
+                            alt="Restoration">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Services Grid -->
+            <div class="additional-services-section">
+                <h2 class="section-title">Additional Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">💎</div>
+                        <h3>Professional Appraisals</h3>
+                        <p>Certified appraisals for insurance, estate planning, or resale purposes. Our gemologists
+                            provide detailed documentation and market analysis.</p>
+                        <span class="service-price">From $150</span>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">✨</div>
+                        <h3>Cleaning & Maintenance</h3>
+                        <p>Complimentary cleaning for all Luminère pieces. Professional deep cleaning, inspection, and
+                            maintenance services also available.</p>
+                        <span class="service-price">Complimentary</span>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🔍</div>
+                        <h3>Diamond Education</h3>
+                        <p>Learn about the 4Cs and how to select the perfect diamond. Private sessions with our
+                            certified gemologists available by appointment.</p>
+                        <span class="service-price">Complimentary</span>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">💍</div>
+                        <h3>Engagement Ring Concierge</h3>
+                        <p>A dedicated expert guides you through every step of selecting or designing the perfect
+                            engagement ring for your special moment.</p>
+                        <span class="service-price">Complimentary</span>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">📦</div>
+                        <h3>Trade-In & Upgrade</h3>
+                        <p>Trade in your existing jewelry toward a new piece. We offer fair market value and seamless
+                            upgrade paths for growing collections.</p>
+                        <span class="service-price">Varies</span>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🎁</div>
+                        <h3>Gift Registry</h3>
+                        <p>Create a personalized jewelry registry for weddings, anniversaries, or special occasions.
+                            Share your wish list with loved ones.</p>
+                        <span class="service-price">Complimentary</span>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🔒</div>
+                        <h3>Secure Storage</h3>
+                        <p>Safe deposit services for your most precious pieces. Climate-controlled, insured storage
+                            available for valued clients.</p>
+                        <span class="service-price">From $200/year</span>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🏠</div>
+                        <h3>In-Home Consultations</h3>
+                        <p>Prefer the comfort of your home? Our consultants bring the boutique experience to you with
+                            our white-glove service.</p>
+                        <span class="service-price">Complimentary within 25 miles</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warranty & Guarantee Section -->
+            <div class="warranty-section">
+                <h2 class="section-title">Our Guarantee</h2>
+                <div class="warranty-grid">
+                    <div class="warranty-card">
+                        <h3>Lifetime Warranty</h3>
+                        <p>All Luminère pieces come with a comprehensive lifetime warranty covering manufacturing
+                            defects and workmanship.</p>
+                    </div>
+                    <div class="warranty-card">
+                        <h3>60-Day Returns</h3>
+                        <p>Not completely satisfied? Return any purchase within 60 days for a full refund or exchange.
+                            Your happiness is our priority.</p>
+                    </div>
+                    <div class="warranty-card">
+                        <h3>Free Resizing</h3>
+                        <p>Complimentary ring resizing within the first year of purchase. We want your jewelry to fit
+                            perfectly, always.</p>
+                    </div>
+                    <div class="warranty-card">
+                        <h3>Certified Quality</h3>
+                        <p>Every diamond and gemstone comes with certification from recognized gemological institutes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="services-cta">
+                <h2>Ready to Get Started?</h2>
+                <p>Schedule a complimentary consultation with one of our jewelry experts today</p>
+                <a href="#" onclick="showPage('contact')" class="cta-button">Book Your Consultation</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div class="page" id="about">
+        <div class="about-container">
+            <div class="about-hero">
+                <h1>Our Story</h1>
+                <p class="subtitle">Where craftsmanship meets artistry</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>A Legacy of Excellence</h2>
+                    <p>Since 1987, Luminère has been crafting exceptional jewelry that transcends time. Each piece tells
+                        a story, celebrates a moment, and becomes part of your personal heritage.</p>
+                    <p>Our master artisans blend traditional techniques with contemporary design, ensuring every
+                        creation is both timeless and unique. We source only the finest materials, committed to ethical
+                        practices and sustainable luxury.</p>
+                    <p>From engagement rings to statement necklaces, our collections are designed to make you feel
+                        extraordinary, because we believe jewelry is more than adornment—it's an expression of who you
+                        are.</p>
+                </div>
+                <div class="about-image-container">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&h=1000&fit=crop"
+                    alt="Luxury Jewelry Display" class="about-image">
+                </div>
+            </div>
+
+            <!-- Craftsmanship Process -->
+            <div class="process-section">
+                <h2 class="section-title">Our Craftsmanship Process</h2>
+                <p class="section-subtitle">From concept to creation, every piece undergoes meticulous attention</p>
+
+                <div class="process-grid">
+                    <div class="process-card">
+                        <div class="process-number">01</div>
+                        <h3>Design & Concept</h3>
+                        <p>Our master designers sketch and refine each piece, ensuring it embodies both beauty and
+                            wearability. Every curve, every detail is purposeful.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-number">02</div>
+                        <h3>Stone Selection</h3>
+                        <p>We personally select each diamond and gemstone, evaluating cut, clarity, color, and carat
+                            weight to guarantee exceptional quality.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-number">03</div>
+                        <h3>Handcrafted Creation</h3>
+                        <p>Our artisans, with decades of experience, meticulously craft each piece by hand, combining
+                            traditional techniques with modern precision.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-number">04</div>
+                        <h3>Quality Assurance</h3>
+                        <p>Before reaching you, each piece undergoes rigorous quality checks to ensure it meets our
+                            exacting standards of perfection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Values Section -->
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">✦</div>
+                    <h3>Quality</h3>
+                    <p>Only the finest materials and gemstones, handpicked by our experts for exceptional brilliance and
+                        lasting beauty</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">◈</div>
+                    <h3>Craftsmanship</h3>
+                    <p>Master artisans with decades of experience creating each piece with meticulous attention to every
+                        detail</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">✧</div>
+                    <h3>Integrity</h3>
+                    <p>Ethical sourcing and sustainable practices ensuring beauty without compromise to people or planet
+                    </p>
+                </div>
+            </div>
+
+            <!-- Meet the Team -->
+            <div class="team-section">
+                <h2 class="section-title">Meet Our Master Artisans</h2>
+                <p class="section-subtitle">The passionate craftspeople behind every piece</p>
+
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-image-container">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+                                alt="Master Jeweler" class="team-image">
+                        </div>
+                        <h3>Marcus Chen</h3>
+                        <p class="team-role">Master Jeweler & Founder</p>
+                        <p class="team-bio">With over 40 years of experience, Marcus founded Luminère with a vision to
+                            create jewelry that tells stories. His expertise in diamond setting is unparalleled.</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-image-container">
+                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop"
+                                alt="Lead Designer" class="team-image">
+                        </div>
+                        <h3>Isabella Rossi</h3>
+                        <p class="team-role">Lead Designer</p>
+                        <p class="team-bio">Isabella's contemporary designs blend Italian elegance with modern
+                            minimalism. She brings a fresh perspective to classic forms.</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-image-container">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop"
+                                alt="Gemologist" class="team-image">
+                        </div>
+                        <h3>David Kumar</h3>
+                        <p class="team-role">Chief Gemologist</p>
+                        <p class="team-bio">David's trained eye ensures every stone meets our rigorous standards. His
+                            passion for ethically sourced gems drives our sustainability mission.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sustainability Section -->
+            <div class="sustainability-section">
+                <div class="sustainability-content">
+                    <div class="sustainability-text">
+                        <h2>Our Commitment to Sustainability</h2>
+                        <p>At Luminère, we believe luxury and responsibility go hand in hand. We're committed to
+                            creating beautiful jewelry while protecting the planet and supporting communities.</p>
+                        <ul class="sustainability-list">
+                            <li><strong>Ethical Sourcing:</strong> All our diamonds are conflict-free and certified by
+                                the Kimberley Process</li>
+                            <li><strong>Recycled Metals:</strong> We use 100% recycled gold and platinum in our designs
+                            </li>
+                            <li><strong>Fair Labor:</strong> Our partners adhere to strict fair labor practices</li>
+                            <li><strong>Community Support:</strong> We invest 5% of profits into mining community
+                                education programs</li>
+                            <li><strong>Carbon Neutral:</strong> Our operations are fully carbon neutral by 2025</li>
+                        </ul>
+                    </div>
+                    <div class="about-image-container">
+                        <img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&h=1000&fit=crop"
+                            alt="Sustainable Practices" class="about-image">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="certifications-section">
+                <h2 class="section-title">Recognized Excellence</h2>
+                <div class="certifications-grid">
+                    <div class="cert-card">
+                        <div class="cert-logo">RJC</div>
+                        <p>Responsible Jewellery Council Certified</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-logo">KP</div>
+                        <p>Kimberley Process Compliant</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-logo">GIA</div>
+                        <p>Gemological Institute Partner</p>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-logo">AGS</div>
+                        <p>American Gem Society Member</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div class="page" id="contact">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h1>Get In Touch</h1>
+                <p>We'd love to hear from you. Visit our boutique or reach out online.</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3 class="form-title">Send Us a Message</h3>
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone (Optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info-block">
+                        <h3>Visit Our Boutique</h3>
+                        <p>123 Luxury Avenue<br>
+                            Diamond District<br>
+                            New York, NY 10036<br><br>
+                            Experience our collections in person and receive personalized consultation from our expert
+                            jewelers.</p>
+                    </div>
+                    <div class="info-block">
+                        <h3>Contact Information</h3>
+                        <p><strong>Phone:</strong> +1 (212) 555-0199<br>
+                            <strong>Email:</strong> hello@luminere.com<br>
+                            <strong>Appointments:</strong> appointments@luminere.com<br><br>
+                            <strong>Business Hours:</strong><br>
+                            Monday - Friday: 10:00 AM - 7:00 PM<br>
+                            Saturday: 10:00 AM - 6:00 PM<br>
+                            Sunday: 12:00 PM - 5:00 PM
+                        </p>
+                    </div>
+                    <div class="info-block">
+                        <h3>Follow Our Journey</h3>
+                        <p>Stay connected with us on social media for the latest collections, behind-the-scenes content,
+                            and exclusive offers.</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Instagram">IG</a>
+                            <a href="#" aria-label="Facebook">FB</a>
+                            <a href="#" aria-label="Pinterest">PT</a>
+                            <a href="#" aria-label="Twitter">TW</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointment Booking Section -->
+            <div class="appointment-section">
+                <div class="appointment-content">
+                    <div class="appointment-text">
+                        <h2>Book a Private Consultation</h2>
+                        <p>Experience personalized service in our luxury boutique. Whether you're selecting an
+                            engagement ring, designing a custom piece, or simply exploring our collections, our expert
+                            consultants are here to guide you.</p>
+                        <ul class="appointment-benefits">
+                            <li>One-on-one consultation with a master jeweler</li>
+                            <li>Private viewing room available</li>
+                            <li>Complimentary champagne and refreshments</li>
+                            <li>Custom design consultations</li>
+                            <li>Ring sizing and jewelry appraisals</li>
+                        </ul>
+                        <a href="#" class="cta-button" onclick="alert('Booking system would open here')">Schedule
+                            Appointment</a>
+                    </div>
+                    <div class="appointment-image-container">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop"
+                            alt="Boutique Interior" class="appointment-image">
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>Do you offer custom design services?</h3>
+                        <p>Yes! Our master jewelers work closely with you to create bespoke pieces that reflect your
+                            unique vision. From initial sketch to final polish, we guide you through every step of the
+                            custom design process.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is your return policy?</h3>
+                        <p>We offer a 30-day return policy on all purchases, excluding custom pieces. Items must be in
+                            original condition with all documentation. Engagement rings come with a 60-day return
+                            window.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do you provide jewelry appraisals?</h3>
+                        <p>Yes, we offer professional appraisal services for both insurance purposes and resale value.
+                            Our certified gemologists provide detailed documentation of your pieces.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How do I care for my jewelry?</h3>
+                        <p>Each piece comes with specific care instructions. Generally, we recommend regular cleaning,
+                            safe storage, and annual professional inspections. We offer complimentary cleaning services
+                            for all our pieces.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do you offer financing options?</h3>
+                        <p>Yes, we partner with select financing companies to offer flexible payment plans. Options
+                            include 0% interest for qualified buyers. Contact us for more details.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are your diamonds conflict-free?</h3>
+                        <p>Absolutely. All our diamonds are certified conflict-free and comply with the Kimberley
+                            Process. We are committed to ethical sourcing and sustainability across all our materials.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section">
+                <h2 class="section-title">Find Us</h2>
+                <div class="map-placeholder">
+                    <div class="map-content">
+                        <p>📍 123 Luxury Avenue, Diamond District, New York, NY 10036</p>
+                        <p>Located in the heart of Manhattan's prestigious Diamond District, easily accessible by subway
+                            (B, D, F, M lines to 47-50 Streets - Rockefeller Center)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>LUMINÈRE</h4>
+                <p>Crafting timeless elegance since 1987. Every piece tells your unique story.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#" onclick="showPage('collections')">Collections</a>
+                <a href="#" onclick="showPage('services')">Services</a>
+                <a href="#" onclick="showPage('about')">About Us</a>
+                <a href="#" onclick="showPage('contact')">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Care</h4>
+                <a href="#">Shipping & Returns</a>
+                <a href="#">Ring Size Guide</a>
+                <a href="#">Jewelry Care</a>
+                <a href="#">Warranty</a>
+            </div>
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Subscribe to receive exclusive offers and updates on our latest collections.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Luminère Fine Jewelry. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Page navigation
+        function showPage(pageName) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            const selectedPage = document.getElementById(pageName);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Update active nav link
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Close mobile menu
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            event.target.reset();
+        }
+
+        // Newsletter submission
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for subscribing! Check your email for exclusive offers.');
+            event.target.reset();
+        }
+
+        // Smooth scroll for CTA button
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // Add scroll animation on page load
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            initializeSlider();
+            initializeVideoBackground();
+        });
+
+        // Video Background Initialization
+        function initializeVideoBackground() {
+            const video = document.querySelector('.video-bg');
+            const fallback = document.querySelector('.video-fallback');
+
+            if (video) {
+                // Check if video can play
+                video.addEventListener('error', () => {
+                    console.log('Video failed to load, showing fallback');
+                    if (fallback) {
+                        fallback.style.display = 'block';
+                    }
+                });
+
+                // Try to play video
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log('Video autoplay failed, showing fallback:', error);
+                        if (fallback) {
+                            fallback.style.display = 'block';
+                        }
+                    });
+                }
+            }
+        }
+
+        // Product Slider Functionality - SIMPLE FIX FOR PERFECT ALIGNMENT
+        let currentSlide = 0;
+        let slidesPerView = 4;
+        const totalSlides = 20;
+
+        function initializeSlider() {
+            updateSlidesPerView();
+            updateSliderCards();
+            createDots();
+            updateSliderPosition();
+            window.addEventListener('resize', () => {
+                updateSlidesPerView();
+                updateSliderCards();
+                updateSliderPosition();
+                createDots();
+            });
+        }
+
+        function updateSlidesPerView() {
+            const width = window.innerWidth;
+            if (width <= 768) {
+                slidesPerView = 1;
+            } else if (width <= 1024) {
+                slidesPerView = 2;
+            } else {
+                slidesPerView = 4;
+            }
+        }
+
+        function updateSliderCards() {
+            const cards = document.querySelectorAll('.slider-product-card');
+            const sliderTrack = document.getElementById('sliderTrack');
+
+            if (!cards.length || !sliderTrack) return;
+
+            // Calculate exact percentage for each card (NO GAP CALCULATION)
+            const cardWidthPercent = 100 / slidesPerView;
+
+            // Remove all gaps from track - we'll handle spacing differently
+            sliderTrack.style.gap = '0';
+
+            // Set exact widths for each card
+            cards.forEach(card => {
+                card.style.flex = `0 0 ${cardWidthPercent}%`;
+                card.style.width = `${cardWidthPercent}%`;
+                card.style.minWidth = `${cardWidthPercent}%`;
+                card.style.maxWidth = `${cardWidthPercent}%`;
+                card.style.margin = '0';
+            });
+
+            // Add margin to cards instead of gap for better control
+            if (slidesPerView > 1) {
+                cards.forEach((card, index) => {
+                    if (index % slidesPerView !== slidesPerView - 1) {
+                        card.style.marginRight = '2rem';
+                    }
+                });
+            }
+        }
+
+        function createDots() {
+            const dotsContainer = document.getElementById('sliderDots');
+            if (!dotsContainer) return;
+
+            dotsContainer.innerHTML = '';
+            const numDots = Math.ceil(totalSlides / slidesPerView);
+
+            for (let i = 0; i < numDots; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === Math.floor(currentSlide / slidesPerView)) {
+                    dot.classList.add('active');
+                }
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateSliderPosition() {
+            const sliderTrack = document.getElementById('sliderTrack');
+            if (!sliderTrack) return;
+
+            // Calculate position based on exact card width
+            const cardWidthPercent = 100 / slidesPerView;
+            const translateX = -(currentSlide * cardWidthPercent);
+            sliderTrack.style.transform = `translateX(${translateX}%)`;
+
+            updateDots();
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            const currentDot = Math.floor(currentSlide / slidesPerView);
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentDot);
+            });
+        }
+
+        function slideProducts(direction) {
+            const width = window.innerWidth;
+            let step;
+
+            // Determine step size
+            if (width <= 768) {
+                step = 1; // Mobile: move 1 card
+            } else if (width <= 1024) {
+                step = 1; // Tablet: move 1 card
+            } else {
+                step = 4; // Desktop: move 4 cards
+            }
+
+            currentSlide += direction * step;
+
+            // Boundary check
+            const maxSlide = totalSlides - slidesPerView;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide > maxSlide) currentSlide = maxSlide;
+
+            updateSliderPosition();
+        }
+
+        function goToSlide(dotIndex) {
+            currentSlide = dotIndex * slidesPerView;
+            const maxSlide = totalSlides - slidesPerView;
+            if (currentSlide > maxSlide) currentSlide = maxSlide;
+            updateSliderPosition();
+        }
+
+        // Touch/Swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sliderWrapper = document.querySelector('.slider-wrapper');
+            if (sliderWrapper) {
+                sliderWrapper.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                sliderWrapper.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+            }
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    slideProducts(1); // Swipe left, go to next
+                } else {
+                    slideProducts(-1); // Swipe right, go to previous
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
